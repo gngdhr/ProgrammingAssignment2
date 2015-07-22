@@ -58,3 +58,25 @@ cacheSolve <- function(matx, ...) {
   matx$setinv(mat_inv)
   mat_inv
 }
+
+
+#-- Test Data --
+#This matrix is singular and will fail
+m0 <- matrix(1:9,nrow=3)
+m01 <- makeCacheMatrix(m0)
+m011 <- cacheSolve(m01)
+m011
+
+#This matrix is non-singular and can create inverse
+m1=rbind(c(1,1,2),c(1,2,10),c(12,1,1))
+m11 <- makeCacheMatrix(m1)
+m111 <- cacheSolve(m11)
+m111
+m112 <- cacheSolve(m11) #retrieve from cache
+m112
+print(m111==m112)
+
+#This matrix is non-square and hence we can't create inverse
+m5<-matrix(c(1:10),nrow=2)
+m51<-makeCacheMatrix(m5)
+m51
